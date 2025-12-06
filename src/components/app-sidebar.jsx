@@ -1,5 +1,5 @@
 import { IconInnerShadowTop } from "@tabler/icons-react";
-import { NavDocuments } from "../components/nav-documents";
+import { NotesSections } from "../components/notes-sections";
 import {
   Sidebar,
   SidebarContent,
@@ -10,9 +10,12 @@ import {
 } from "../components/ui/sidebar";
 import { Link } from "react-router-dom";
 import { ArchiveIcon, HomeIcon } from "lucide-react";
+import { TagsSections } from "./tags-sections";
+// import { useNotes } from "../context/notes-context";
 
-const data = {
-  documents: [
+export function AppSidebar({ ...props }) {
+  // const { notes } = useNotes();
+  const notesSections = [
     {
       name: "All Notes",
       url: "/all-notes",
@@ -23,10 +26,8 @@ const data = {
       url: "/archived-notes",
       icon: <ArchiveIcon />,
     },
-  ],
-};
+  ];
 
-export function AppSidebar({ ...props }) {
   return (
     <Sidebar collapsible="offcanvas" {...props} className={"p-0 m-0"}>
       <SidebarHeader>
@@ -44,7 +45,8 @@ export function AppSidebar({ ...props }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavDocuments items={data.documents} />
+        <NotesSections items={notesSections} />
+        <TagsSections />
       </SidebarContent>
     </Sidebar>
   );

@@ -10,6 +10,7 @@ import Page from "./dashboard/page.jsx";
 import { PageNotFound } from "../pages/PageNotFound.jsx";
 import { AllNotes } from "../pages/All-Notes.jsx";
 import { ArchivedNotes } from "../pages/Archived-Notes.jsx";
+import { NotesContext } from "../context/notes-context.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <NotesContext>
+      <RouterProvider router={router} />
+    </NotesContext>
   </StrictMode>
 );

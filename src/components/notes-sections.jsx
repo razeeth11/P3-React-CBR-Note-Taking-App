@@ -5,23 +5,23 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "../components/ui/sidebar";
+} from "./ui/sidebar";
 import { ChevronRight } from "lucide-react";
 
-export function NavDocuments({ items }) {
+export function NotesSections({ items }) {
   const location = useLocation();
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden p-0">
+    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Notes</SidebarGroupLabel>
-      <SidebarMenu className={"p-0 gap-0"}>
+      <SidebarMenu className={"gap-0"}>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton
               asChild
               className={`p-6 ${
-                location.pathname === item.url && "bg-blue-500 text-white"
-              } rounded-none`}
+                location.pathname === item.url && "bg-gray-600 text-white"
+              } rounded`}
             >
               <NavLink to={item.url}>
                 <NavButton item={item} />
