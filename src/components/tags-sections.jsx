@@ -1,34 +1,45 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Tag } from "lucide-react";
 import { useNotes } from "../context/notes-context";
+import { useState } from "react";
 
 export function TagsSections() {
-  const location = useLocation();
   const { notes } = useNotes();
+  const uniqueTags = Array.from(new Set(notes.flatMap((n) => n.tags)));
+  const [selectedTag, setSelectedTag] = useState("All");
+
+  function selectTagHandler(item) {
+    setSelectedTag(item);
+  }
+
+  const navButtonBgColor = "rounded cursor-pointer hover:bg-gray-200";
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden p-0">
+    <SidebarGroup>
       <SidebarGroupLabel>Notes</SidebarGroupLabel>
-      <SidebarMenu className={"p-0 gap-0"}>
-        {notes.map((item, index) => (
-          <SidebarMenuItem key={index}>
-            <SidebarMenuButton
-              asChild
-              //   className={`p-6 ${
-              //     location.pathname === item.url && "bg-blue-500 text-white"
-              //   } rounded-none`}
-            >
-              {/* <NavLink to={item.url}> */}
-              <NavButton item={item} />
-              {/* </NavLink> */}
-            </SidebarMenuButton>
+      <SidebarMenu className={"gap-0"}>
+        <SidebarMenuItem
+          className={`${
+            selectedTag === "All" && "bg-gray-200"
+          } ${navButtonBgColor}`}
+          onClick={() => selectTagHandler("All")}
+        >
+          <NavButton item={"All Tag"} />
+        </SidebarMenuItem>
+        {uniqueTags.map((item, index) => (
+          <SidebarMenuItem
+            key={index}
+            className={`${
+              selectedTag === item && "bg-gray-200"
+            } ${navButtonBgColor}`}
+            onClick={() => selectTagHandler(item)}
+          >
+            <NavButton item={item} />
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
@@ -37,11 +48,13 @@ export function TagsSections() {
 }
 
 function NavButton({ item }) {
+  const flexRowBetween = "flex items-center justify-between";
+
   return (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex items-center justify-between gap-2.5">
-        {/* {item.icon} */}
-        <span>{item.tags[0]}</span>
+    <div className={`${flexRowBetween} w-full p-3 rounded`}>
+      <div className={`${flexRowBetween} gap-2.5`}>
+        <Tag className="size-4" />
+        <p>{item}</p>
       </div>
       <ChevronRight />
     </div>

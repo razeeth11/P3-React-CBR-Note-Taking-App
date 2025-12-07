@@ -118,3 +118,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* globals.css */
+::-webkit-scrollbar {
+  display: none;
+  scrollbar-width: none; /* Firefox */
+}

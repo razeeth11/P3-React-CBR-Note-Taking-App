@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -12,21 +12,19 @@ export function NotesSections({ items }) {
   const location = useLocation();
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroup>
       <SidebarGroupLabel>Notes</SidebarGroupLabel>
       <SidebarMenu className={"gap-0"}>
         {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton
-              asChild
-              className={`p-6 ${
-                location.pathname === item.url && "bg-gray-600 text-white"
-              } rounded`}
-            >
-              <NavLink to={item.url}>
-                <NavButton item={item} />
-              </NavLink>
-            </SidebarMenuButton>
+          <SidebarMenuItem
+            key={item.name}
+            className={`${
+              location.pathname === item.url && "bg-gray-200"
+            } rounded`}
+          >
+            <NavLink to={item.url}>
+              <NavButton item={item} />
+            </NavLink>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
@@ -35,11 +33,13 @@ export function NotesSections({ items }) {
 }
 
 function NavButton({ item }) {
+  const flexRowBetween = "flex items-center justify-between";
+
   return (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex items-center justify-between gap-2.5">
-        {item.icon}
-        <span>{item.name}</span>
+    <div className={`${flexRowBetween} w-full p-3 rounded`}>
+      <div className={`${flexRowBetween} gap-2.5`}>
+        <item.icon className="size-5" />
+        <p>{item.name}</p>
       </div>
       <ChevronRight />
     </div>

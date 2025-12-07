@@ -11,20 +11,18 @@ import {
 import { Link } from "react-router-dom";
 import { ArchiveIcon, HomeIcon } from "lucide-react";
 import { TagsSections } from "./tags-sections";
-// import { useNotes } from "../context/notes-context";
 
 export function AppSidebar({ ...props }) {
-  // const { notes } = useNotes();
   const notesSections = [
     {
       name: "All Notes",
       url: "/all-notes",
-      icon: <HomeIcon />,
+      icon: HomeIcon,
     },
     {
       name: "Archived Notes",
       url: "/archived-notes",
-      icon: <ArchiveIcon />,
+      icon: ArchiveIcon,
     },
   ];
 
